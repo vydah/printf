@@ -1,34 +1,42 @@
 #ifndef MAIN_H
 #define MAIN_H
-#define BUFSIZE 1025
 #include <stdarg.h>
 
-/**
-  * struct validTypes - structure to lookup functions for valid types
-  * @valid: flags are preceded by a '%' character.
-  * @f: pointer to function
-  */
-typedef struct validTypes
-{
-	char *valid;
-	char *(*f)();
-} v_types;
-
 int _printf(const char *format, ...);
-char *(*get_valid_type(char s))(va_list);
-char *found_char(va_list c);
-char *found_string(va_list *s);
-char *found_percent();
-char *found_int(va_list n);
-char *found_unsigned(va_list usign);
-char *found_nothing(char);
-char *found_reverse(va_list s);
-char *found_rot13(va_list s);
-char *found_octal(va_list n);
-char *_memcpy(char *dest, char *src, unsigned int n, unsigned int bufferlen);
-int _strlen(char *s);
-void _puts(char *buffer, int size);
-int alloc_buffer(char *hold, int hlen, char *buffer, int blen, double *total);
-char *ctos(char c);
+int pull_print(char c, va_list *ap);
 
+int _putchar(char);
+int buffer(char a, char *s);
+int p_bin(unsigned int num);
+int exponent(int x, int y);
+int p_int(int);
+int p_string(char *);
+int p_hexstring(char *);
+int p_rev(char *s);
+int p_hexcap(unsigned int num);
+int p_octal(unsigned int num);
+int p_uint(unsigned int num);
+int p_hex(unsigned int num);
+
+int mkstring(va_list *);
+int mkchar(va_list *);
+int mkint(va_list *);
+int mkbin(va_list *);
+int mkhex(va_list *);
+int mkhexcap(va_list *);
+int mkoctal(va_list *);
+int mkhexstring(va_list *);
+int mkunsigned(va_list *);
+
+/**
+ * struct flag -flag object
+ * @letter: flag char
+ * @prnt: print function pointer
+ * Descriptions: contains flag letter and corresponding print function
+ **/
+typedef struct flag
+{
+  char letter;
+  int (*prnt)(va_list *);
+} find_flag;
 #endif
