@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef _PRINT_FUNCTION_H_
+#define _PRINT_FUNCTION_H_
 #include <stdarg.h>
 
 int _printf(const char *format, ...);
