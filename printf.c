@@ -1,49 +1,30 @@
 #include "main.h"
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 /**
- * _printf - Build out the printf function
- * @format: string passed with possible format specifiers
- * Return: number of characters printed
- */
+ * _printf - print string as printf
+ * @format: number of arguments
+ * Return: void
+ **/
 int _printf(const char *format, ...)
 {
-	int i, blen, hlen;
-	double totalBuffer;
-	double *total;
-	va_list argp;
-	char buffer[BUFSIZE], *holder;
-	char *(*pointer_get_valid)(va_list);
+	va_list ap;
+	unsigned int i, result;
 
-	for (i = 0; i < BUFSIZE; i++)
-	{
-		buffer[i] = 0;
-	}
-	totalBuffer = 0;
-	pointer_get_valid = NULL;
-	total = &totalBuffer;
-	va_start(argp, format);
-	for (i = blen = hlen = 0; format && format[i]; i++)
+	result = 0;
+	va_start(ap, format);
+
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
-			pointer_get_valid = get_valid_type(format[i + 1]);
-			holder = (pointer_get_valid == NULL) ?
-				found_nothing(format[i + 1]) :
-				pointer_get_valid(argp);
-			hlen = _strlen(holder);
-			blen = alloc_buffer(holder, hlen, buffer, blen, total);
+			result += pull_print(format[i + 1], &ap);
 			i++;
 		}
 		else
 		{
-			holder = ctos(format[i]);
-			blen = alloc_buffer(holder, 1, buffer, blen, total);
+			_putchar(format[i]);
+			result++;
 		}
 	}
-	va_end(argp);
-	_puts(buffer, blen);
-	return (totalBuffer + blen);
+	va_end(ap);
+	return (result);
 }
