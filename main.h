@@ -1,5 +1,3 @@
-#ifndef _PRINT_FUNCTION_H_
-#define _PRINT_FUNCTION_H_
 #include <stdarg.h>
 
 int _printf(const char *format, ...);
@@ -39,4 +37,3 @@ typedef struct flag
   char letter;
   int (*prnt)(va_list *);
 } find_flag;
-#endif
